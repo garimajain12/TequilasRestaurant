@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewBag.Title = "Tequlias Menu Items";
+}
+@functions {
+    string GetDeleteModalId(Product prod)
+    {
+        return "#deleteModal" + prod.ProductId;
+    }
+
+    string GetModalId(Product prod)
+    {
+        return "deleteModal" + prod.ProductId;
+    }
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">@ViewBag.Title</h2>
+
+    <div class="d-flex justify-content-center mb-3">
+        <a asp-action="AddEdit" asp-controller="Product" class="btn btn-success px-4">
+            <i class="fas fa-plus"></i> Create New Item
+        </a>
+    </div>
+
+    <div class="row">
+        @foreach (Product prod in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg p-3">
+                    <img src="@Url.Content("~/images/" + prod?.ImageUrl)" class="card-img-top fixed-image-height rounded-top" alt="@prod.Description">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary fw-bold">@prod.Name</h5>
+                        <p class="card-text text-secondary">@prod.Description</p>
+                        <p class="card-text fw-bold text-success">@prod.Price.ToString("C")</p>
+                        <p class="card-text text-muted">Stock: @prod.Stock</p>
+
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary px-3" asp-controller="Product" asp-action="AddEdit" asp-route-id="@prod.ProductId">
+                                <i class="bi bi-pencil-fill"></i> Edit
+                            </a>
+
+                            <button type="button" class="btn btn-outline-danger px-3" data-bs-toggle="modal" data-bs-target="@GetDeleteModalId(prod)">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="@GetModalId(prod)" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-danger">Confirm Deletion</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <strong>@prod.Name</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form asp-action="Delete" asp-controller="Product" method="post">
+                                    <input type="hidden" name="id" value="@prod.ProductId" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

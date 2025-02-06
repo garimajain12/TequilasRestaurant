@@ -1,0 +1,82 @@
+﻿@model Product
+@{
+    ViewBag.Title = $"{ViewBag.Operation} Menu Item";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">@ViewBag.Operation Menu Item</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4">
+                <form asp-action="AddEdit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="ProductId" />
+                    <input type="hidden" asp-for="CategoryId" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label fw-bold"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter product name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="form-label fw-bold"></label>
+                        <input asp-for="Description" class="form-control" placeholder="Enter product description" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Price" class="form-label fw-bold"></label>
+                        <input asp-for="Price" class="form-control" placeholder="Enter product price" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Stock" class="form-label fw-bold">Quantity In Stock</label>
+                        <input asp-for="Stock" class="form-control" placeholder="Enter stock quantity" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="imageUpload" class="form-label fw-bold">Upload Image</label>
+                        <input type="file" class="form-control" id="imageUpload" name="ImageFile" asp-for="ImageFile" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Category</h5>
+                            @foreach (Category category in ViewBag.Category)
+                            {
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" id="@category.CategoryId" name="catId" value="@category.CategoryId" @(Model.CategoryId == category.CategoryId ? "checked" : "") />
+                                    <label class="form-check-label" for="@category.CategoryId">@category.Name</label>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Ingredients</h5>
+                            @foreach (Ingredient ingredient in ViewBag.Ingredients)
+                            {
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="@ingredient.IngredientId" name="ingredientIds" value="@ingredient.IngredientId"
+                                    @(Model.ProductIngredients != null && Model.ProductIngredients.Any(i => i.IngredientId == ingredient.IngredientId) ? "checked" : "") />
+                                    <label class="form-check-label" for="@ingredient.IngredientId">@ingredient.Name</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="fas fa-save"></i> Save
+                        </button>
+                        <a asp-action="Index" asp-controller="Product" class="btn btn-outline-danger px-4">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

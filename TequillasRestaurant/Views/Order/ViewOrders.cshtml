@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TequillasRestaurant.Models.Order>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">My Orders</h2>
+    <div class="card shadow-lg p-4">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <th>Order Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                        <td class="text-success fw-bold">@order.TotalAmount.ToString("C")</td>
+                        <td>
+                            <ul class="list-unstyled text-start">
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li class="fw-semibold">@item.Product.Name - @item.Quantity x @item.Price.ToString("C")</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

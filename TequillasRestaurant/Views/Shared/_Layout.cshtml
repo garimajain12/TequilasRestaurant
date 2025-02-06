@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - TequillasRestaurant</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/TequillasRestaurant.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+		
+		.navbar {
+			background-color: #555555;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.navbar-brand {
+			font-weight: bold;
+			color: white !important;
+			font-size: 1.5rem;
+			display: flex;
+			align-items: center;
+		}
+
+			.navbar-brand i {
+				margin-right: 10px;
+			}
+
+		.navbar-nav .nav-link {
+			color: white !important;
+			font-weight: 500;
+		}
+
+			.navbar-nav .nav-link:hover,
+			.navbar-nav .nav-link.active {
+				color: #B0B0B0 !important;
+			}
+
+		.container {
+			flex: 1;
+		}
+
+		.footer {
+			background-color: #808080;
+			color: white;
+			padding: 10px 0; 
+			text-align: center;
+			font-size: 14px;
+			width: 100%;
+			position: static;
+		}
+
+			.footer a {
+				color: white;
+				text-decoration: none;
+				font-weight: 500;
+			}
+
+				.footer a:hover {
+					color: #B0B0B0;
+					text-decoration: underline;
+				}
+
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+					<i class="fas fa-utensils"></i> TequliasRestaurant
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+						aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Ingredient" asp-action="Index">Ingredients</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Menu Items</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Order" asp-action="Create">Create Order</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav ms-auto">
+						<partial name="_LoginPartial" />
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container mt-4">
+		<main role="main" class="pb-4">
+			@RenderBody()
+		</main>
+	</div>
+
+	<footer class="footer mt-1">
+		<div class="container">
+			&copy; 2025 - Developed by Garima Jain - TequilasRestaurant
+		</div>
+	</footer>
+
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

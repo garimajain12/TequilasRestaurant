@@ -1,0 +1,33 @@
+﻿@model OrderViewModel
+
+@{
+    ViewBag.Title = "Create Order";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Create Order</h2>
+
+    <div class="row justify-content-center">
+        @foreach (Product product in @Model.Products)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg p-3" style="width: 18rem;">
+                    <img src="@Url.Content("~/images/" + product?.ImageUrl)" class="card-img-top fixed-image-height" alt="@product.Description">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">@product.Name</h5>
+                        <p class="text-success">@product.Price.ToString("C")</p>
+                        <form asp-action="AddItem" method="post">
+                            <input type="hidden" value="@product.ProductId" name="prodId" />
+                            <div class="form-group mb-2">
+                                <input type="number" name="prodQty" class="form-control" placeholder="Enter quantity" />
+                            </div>
+                            <button class="btn btn-info px-4" type="submit">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
