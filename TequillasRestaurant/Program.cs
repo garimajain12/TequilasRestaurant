@@ -48,5 +48,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Ingredient}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.MapGet("/", () => "Welcome to Backend");
 
 app.Run();
